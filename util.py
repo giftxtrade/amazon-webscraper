@@ -8,6 +8,10 @@ headers = {
 }
 
 
+def filepath(filename: str) -> str:
+    return os.path.join(current_dir, filename)
+
+
 def build_page_url(keyword: str, page_number: int = 1) -> str:
     return 'https://www.amazon.com/s?k={keyword}&page={page}'.format(
         keyword=urlize_string(keyword),
