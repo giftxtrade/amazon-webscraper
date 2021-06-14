@@ -12,15 +12,17 @@ with open(filepath('tokens.json'), 'r') as f:
 
 invalids = file_to_array(filepath('invalid_tags.txt'))
 
+
 def crawl():
     keywords = file_to_array(filepath('search_keywords.txt'))
 
     # for keyword in keywords:
     for keyword in ['Amazon Cloud Cam Devices']:
-        url = build_page_url(keyword.strip())
-        print('Crawling: ' + url)
-        search_request(url)
-        print()
+        for i in range(1, 6):
+            url = build_page_url(keyword.strip(), i)
+            print('Crawling: ' + url)
+            search_request(url)
+            print()
 
 
 def search_request(url: str):
@@ -35,7 +37,7 @@ def search_request(url: str):
         if handle_fields(item):
             success += 1
         count += 1
-    
+
     print("Status: " + str(success) + "/" + str(count))
 
     wait_time = randint(1, 30)/100
@@ -89,8 +91,6 @@ def print_details(title, image, link, product_key, rating, price):
     print("Price: $" + price)
     print()
 
-
-check_for_invalids()
 
 if __name__ == "__main__":
     crawl()
