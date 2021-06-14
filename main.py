@@ -45,6 +45,12 @@ def search_request(url: str):
 
 def handle_fields(html: str):
     try:
+        title = html.find('h2').text
+
+        for invalid_keyword in invalids:
+            if invalid_keyword in title:
+                return False
+
         image = html.find('img').get('src')
 
         link = ''
@@ -60,7 +66,6 @@ def handle_fields(html: str):
                 product_key = link.split('/dp/')[1].split('/')[0]
                 break
 
-        title = html.find('h2').text
         ratings_raw = html.find('i').text
         rating = ratings_raw.split(' ')[0]
         price = html.text.split('$')[1]
