@@ -3,7 +3,7 @@ import json
 import requests
 import time
 from bs4 import BeautifulSoup
-from util import current_dir, headers, build_page_url, file_to_array, filepath
+from util import current_dir, headers, build_page_url, file_to_array, filepath, send_product_data
 from random import randint
 
 tokens_file = os.path.join(current_dir, "tokens.json")
@@ -16,16 +16,16 @@ invalids = file_to_array(filepath('invalid_tags.txt'))
 def crawl():
     keywords = file_to_array(filepath('search_keywords.txt'))
 
-    # for keyword in keywords:
-    for keyword in ['Amazon Cloud Cam Devices']:
+    for keyword in keywords:
         for i in range(1, 6):
             url = build_page_url(keyword.strip(), i)
             print('Crawling: ' + url)
-            search_request(url)
+            search_request(url, keyword)
             print()
+        print()
 
 
-def search_request(url: str):
+def search_request(url: str, category: str):
     page = requests.get(url, headers=headers, allow_redirects=True)
     parsedPage = BeautifulSoup(page.text, 'html.parser')
     items = parsedPage.find_all(class_='s-result-item')
@@ -34,18 +34,18 @@ def search_request(url: str):
     count = 0
 
     for item in items:
-        if handle_fields(item):
+        if handle_fields(item, category):
             success += 1
         count += 1
 
     print("Status: " + str(success) + "/" + str(count))
 
-    wait_time = randint(1, 30)/100
+    wait_time = randint(0, 10)/100
     print("Wait: " + str(wait_time) + " seconds")
     time.sleep(wait_time)
 
 
-def handle_fields(html: str):
+def handle_fields(html: str, category: str) -> bool:
     try:
         title = html.find('h2').text
 
@@ -76,6 +76,9 @@ def handle_fields(html: str):
             return False
 
         # print_details(title, image, link, product_key, rating, price)
+
+        send_product_data(tokens['access_token'], title, '',
+                          image, link, product_key, rating, price, category)
 
         return True
     except:
