@@ -16,13 +16,16 @@ invalids = file_to_array(filepath('invalid_tags.txt'))
 def crawl():
     keywords = file_to_array(filepath('search_keywords.txt'))
 
+    count = 0
     for keyword in keywords:
         for i in range(1, 6):
             url = build_page_url(keyword.strip(), i)
             print('Crawling: ' + url)
             search_request(url, keyword)
             print()
+            count += 1
         print()
+    print("Crawl completed! Posted " + str(count) + " products to server.")
 
 
 def search_request(url: str, category: str):
@@ -40,7 +43,7 @@ def search_request(url: str, category: str):
 
     print("Status: " + str(success) + "/" + str(count))
 
-    wait_time = randint(0, 10)/100
+    wait_time = randint(3, 20)/100
     print("Wait: " + str(wait_time) + " seconds")
     time.sleep(wait_time)
 
@@ -74,6 +77,11 @@ def handle_fields(html: str, category: str) -> bool:
 
         if image == '' or product_key == '' or title == '' or rating == '' or price == '':
             return False
+
+        title = title.strip()
+        image = image.strip()
+        product_key = product_key.strip()
+        link = 'https://www.amazon.com' + link
 
         # print_details(title, image, link, product_key, rating, price)
 
