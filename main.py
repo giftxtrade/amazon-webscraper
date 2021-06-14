@@ -29,7 +29,11 @@ def crawl():
 
 
 def search_request(url: str, category: str):
-    page = requests.get(url, headers=headers, allow_redirects=True)
+    try:
+        page = requests.get(url, headers=headers, allow_redirects=True)
+    except:
+        print("Could not send a request to the URL")
+        return
     parsedPage = BeautifulSoup(page.text, 'html.parser')
     items = parsedPage.find_all(class_='s-result-item')
 
@@ -43,7 +47,7 @@ def search_request(url: str, category: str):
 
     print("Status: " + str(success) + "/" + str(count))
 
-    wait_time = randint(3, 20)/100
+    wait_time = randint(10, 80)/100
     print("Wait: " + str(wait_time) + " seconds")
     time.sleep(wait_time)
 
