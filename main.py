@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from util import current_dir, headers, build_page_url, file_to_array, filepath, send_product_data
 from random import randint
 
-tokens_file = os.path.join(current_dir, "tokens.json")
+
 with open(filepath('tokens.json'), 'r') as f:
     tokens = json.load(f)
 
@@ -16,16 +16,26 @@ invalids = file_to_array(filepath('invalid_tags.txt'))
 def crawl():
     keywords = file_to_array(filepath('search_keywords.txt'))
 
-    count = 0
+    page_count = 0
+    product_count = 0
+    total_product_count = 0
+
     for keyword in keywords:
+        if keyword.startswith('#'):
+            continue
+
         for i in range(1, 6):
             url = build_page_url(keyword.strip(), i)
             print('Crawling: ' + url)
-            search_request(url, keyword)
+            success_pc, total_pc = search_request(url, keyword)
             print()
-            count += 1
+
+            product_count += success_pc
+            total_product_count += total_pc
+            page_count += 1
         print()
-    print("Crawl completed! Posted " + str(count) + " products to server.")
+    print("Crawled " + str(page_count) + " pages.")
+    print("Total products recorded: " + product_count + "/" + total_product_count)
 
 
 def search_request(url: str, category: str):
@@ -50,6 +60,8 @@ def search_request(url: str, category: str):
     wait_time = randint(10, 80)/100
     print("Wait: " + str(wait_time) + " seconds")
     time.sleep(wait_time)
+
+    return success, count
 
 
 def handle_fields(html: str, category: str) -> bool:
