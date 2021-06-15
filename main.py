@@ -5,6 +5,19 @@ import time
 from bs4 import BeautifulSoup
 from util import current_dir, headers, build_page_url, file_to_array, filepath, send_product_data
 from random import randint
+from random_user_agent.user_agent import UserAgent
+from random_user_agent.params import SoftwareName, OperatingSystem
+
+
+# User agents
+software_names = [SoftwareName.CHROME.value]
+operating_systems = [
+    OperatingSystem.WINDOWS.value, OperatingSystem.LINUX.value]
+
+user_agent_rotator = UserAgent(
+    software_names=software_names, operating_systems=operating_systems, limit=100)
+
+headers['User-Agent'] = user_agent_rotator.get_random_user_agent()
 
 
 PAGE_DEPTH = 2
@@ -30,6 +43,16 @@ def crawl():
             print('Crawling: ' + url)
             success_pc, total_pc = search_request(url, keyword)
             print()
+
+            if success_pc == 0 and total_pc == 0:
+                rl_sleep = 60
+                print('Rate limited? wait for ' + str(rl_sleep) + ' seconds')
+                time.sleep(rl_sleep)  # Sleep for 1 min
+
+                # Generate new random user agent
+                headers['User-Agent'] = user_agent_rotator.get_random_user_agent()
+                print('New user agent: ')
+                print(headers['User-Agent'])
 
             product_count += success_pc
             total_product_count += total_pc
@@ -64,7 +87,7 @@ def search_request(url: str, category: str):
 
     print("Status: " + str(success) + "/" + str(count))
 
-    wait_time = randint(30, 300)/100
+    wait_time = randint(400, 800)/100
     print("Wait: " + str(wait_time) + " seconds")
     time.sleep(wait_time)
 
