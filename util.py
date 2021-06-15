@@ -29,11 +29,18 @@ def urlize_string(str: str) -> str:
 
 def file_to_array(filepath: str) -> [str]:
     res = []
+    file_set = set()
     with open(filepath, 'r') as f:
         for line in f:
-            if not line or line == '' or line.startswith("#"):
+            l = line.strip()
+            if l == '' or l.startswith("#"):
                 continue
-            res.append(line)
+
+            if l in file_set:
+                continue
+            file_set.append(l)
+            res.append(l)
+
     return res
 
 
