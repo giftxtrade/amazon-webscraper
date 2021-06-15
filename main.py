@@ -7,6 +7,8 @@ from util import current_dir, headers, build_page_url, file_to_array, filepath, 
 from random import randint
 
 
+PAGE_DEPTH = 2
+
 with open(filepath('tokens.json'), 'r') as f:
     tokens = json.load(f)
 
@@ -20,11 +22,10 @@ def crawl():
     product_count = 0
     total_product_count = 0
 
-    for keyword in keywords:
-        if keyword.startswith('#'):
-            continue
+    START_TIME = time.time()
 
-        for i in range(1, 6):
+    for keyword in keywords:
+        for i in range(1, PAGE_DEPTH + 1):
             url = build_page_url(keyword.strip(), i)
             print('Crawling: ' + url)
             success_pc, total_pc = search_request(url, keyword)
@@ -34,8 +35,14 @@ def crawl():
             total_product_count += total_pc
             page_count += 1
         print()
+
+    END_TIME = time.time()
+
     print("Crawled " + str(page_count) + " pages.")
-    print("Total products recorded: " + product_count + "/" + total_product_count)
+    print("Total products recorded: " +
+          str(product_count) + "/" + str(total_product_count))
+
+    print("Took " + str(round(END_TIME - START_TIME) / 60) + " minutes")
 
 
 def search_request(url: str, category: str):
@@ -57,7 +64,7 @@ def search_request(url: str, category: str):
 
     print("Status: " + str(success) + "/" + str(count))
 
-    wait_time = randint(10, 80)/100
+    wait_time = randint(30, 300)/100
     print("Wait: " + str(wait_time) + " seconds")
     time.sleep(wait_time)
 
@@ -69,7 +76,8 @@ def handle_fields(html: str, category: str) -> bool:
         title = html.find('h2').text
 
         for invalid_keyword in invalids:
-            if invalid_keyword in title:
+            t = title.lower()
+            if invalid_keyword in t or invalid_keyword + 's' in t:
                 return False
 
         image = html.find('img').get('src')
@@ -99,7 +107,10 @@ def handle_fields(html: str, category: str) -> bool:
         product_key = product_key.strip()
         link = 'https://www.amazon.com' + link
 
-        # print_details(title, image, link, product_key, rating, price)
+        brand_name_elem = html.find('h5')
+        if brand_name_elem:
+            brand = brand_name_elem.find('span').text
+            title = brand + ' ' + title
 
         send_product_data(tokens['access_token'], title, '',
                           image, link, product_key, rating, price, category)
