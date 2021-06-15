@@ -1,63 +1,188 @@
-Luxury beauty
-Makeup
-Blades
-Knives
-Mouse
-Keyboard
-Gaming
-Dental
-Amazon Kindle Devices
-Amazon Fashion Women's
-Men's & Kids Private Label
-Luxury Stores Fashion
-Apparel
-Amazon Cloud Cam Devices
-Fire TV Edition Smart TVs
-Amazon Fire TV Devices
-Amazon Echo Devices
-Ring Devices
-Jewelry
-Luggage
-Shoes
-Handbags
-Accessories
-Toys
-Furniture
-Home
-Home Improvement
-Lawn & Garden
-Pets Products
-Headphones
-Beauty
-Musical Instruments
-Business
-Industrial Supplies
-Outdoors
-Tools
-Sports
-Baby Products
-PC
-PC Components
-DVD & Blu-Ray
-Televisions
-Digital Video Games
-Physical Video Games
-Video Game Consoles
-Health
-Personal Care
-BTS
-K-pop
-Gym
-eBooks
-Sci-fi Novels
-Fiction Novels
-Roblox
-Perfume
-Handbags
-Hair Care
-Skin Care
-Nails
-Candles
-Planters
-Footwear
-Watches
+luxury beauty
+makeup
+blades
+knives
+mouse
+keyboard
+gaming
+dental
+amazon kindle devices
+amazon fashion womens
+mens & kids private label
+luxury stores fashion
+apparel
+amazon cloud cam devices
+fire tv edition
+smart tvs
+amazon fire tv devices
+amazon echo devices
+ring devices
+jewelry
+luggage
+shoes
+accessories
+toys
+furniture
+home
+home improvement
+lawn & garden
+pets products
+headphones
+beauty
+musical Instruments
+business
+industrial supplies
+outdoors
+tools
+sports
+baby products
+pc
+pc components
+dvd
+blu-ray
+televisions
+digital video games
+physical video games
+video game consoles
+health
+personal care
+bts
+k-pop
+gym
+ebooks
+sci-fi novels
+fiction novels
+roblox
+perfume
+handbags
+hair care
+skin care
+nails
+candles
+planters
+footwear
+watches
+fathers day
+mothers day
+mens tshirts
+mens tees
+womens tshirts
+womens tees
+boys tees
+girls tees
+boxing
+mma
+workout
+dumbells
+steelseries
+razer
+logitech
+apple
+stickers
+iphone case
+iphone 8 case
+iphone 8 plus case
+iphone x case
+iphone x s case
+iphone x s max case
+iphone 10 case
+iphone 10 s case
+iphone 10 s max case
+iphone 11 case
+iphone 11 pro case
+iphone 11 pro max case
+iphone 12 case
+iphone 12 mini case
+iphone 12 pro case
+iphone 12 pro max case
+samsung case
+construction
+dinosaurs
+trex
+rc
+body butter
+body scrubs
+shower
+body oil
+hair oil
+mario badescu
+adidas
+nike
+mens sweatpants
+mens joggers
+womens sweatpants
+womens joggers
+drills
+makita tools
+milwaukee tools
+dewalt tools
+geforce
+gtx
+rtx
+intel
+amd
+radeon
+usb hub
+usb c hub
+graphics card
+cpu
+led
+arduino
+raspberry pi
+dell
+lenovo
+chromebook
+asus
+monitor
+nest
+backpack
+anime
+manga
+mag safe
+lightning cable
+usb c
+hdmi
+webcam
+study lamp
+pop socket
+phone mount
+drill bits
+oscillating saw
+hiking boots
+hiking bag
+sun glasses for men
+sun glasses for women
+school
+school supplies
+sports
+phone
+ipad
+macbook
+mousepad
+coffee maker
+hydro flask
+water bottle
+press on nail
+nail sticker
+acrylic nail kit
+nail polish
+mens socks
+womens socks
+fun socks
+funny socks
+dogecoin tees
+dogecoin merch
+mens funny tees
+womens funny tees
+star wars
+family games
+cat
+cat food
+cat tees
+cat toys
+cat litter box
+dog
+dog food
+dog toys
+dog tees
+cleaning products
