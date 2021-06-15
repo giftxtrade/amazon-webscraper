@@ -38,7 +38,7 @@ def file_to_array(filepath: str) -> [str]:
 
             if l in file_set:
                 continue
-            file_set.append(l)
+            file_set.add(l)
             res.append(l)
 
     return res
