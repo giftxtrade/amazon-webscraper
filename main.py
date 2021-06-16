@@ -29,6 +29,10 @@ invalids = file_to_array(filepath('invalid_tags.txt'))
 
 
 def crawl():
+    print('User Agent: ')
+    print(headers['User-Agent'])
+    print()
+
     keywords = file_to_array(filepath('search_keywords.txt'))
 
     page_count = 0
@@ -73,7 +77,7 @@ def search_request(url: str, category: str):
         page = requests.get(url, headers=headers, allow_redirects=True)
     except:
         print("Could not send a request to the URL")
-        return
+        return 0, 0
     parsedPage = BeautifulSoup(page.text, 'html.parser')
     items = parsedPage.find_all(class_='s-result-item')
 
