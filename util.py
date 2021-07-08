@@ -46,7 +46,7 @@ def file_to_array(filepath: str) -> [str]:
 
 def send_product_data(access_token, title, description, imageUrl, link, product_key, rating, price, category):
     try:
-        response = requests.post('http://localhost:3001/products', headers={
+        response = requests.post('https://giftxtradeapi.com/products', headers={
             "Contetn-Type": "application/json",
             "Authorization": "Bearer " + access_token
         }, data={
