@@ -139,6 +139,8 @@ def handle_fields(html: str, category: str) -> bool:
             brand = brand_name_elem.find('span').text
             title = brand + ' ' + title
 
+        print_details(title, image, link, product_key, rating, price)
+
         send_product_data(tokens['access_token'], title, '',
                           image, link, product_key, rating, price, category)
 

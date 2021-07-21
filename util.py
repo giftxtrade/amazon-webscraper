@@ -62,4 +62,4 @@ def send_product_data(access_token, title, description, imageUrl, link, product_
         })
         return response
     except Error:
-        raise Error
+        print("Couldn't POST product to server")
