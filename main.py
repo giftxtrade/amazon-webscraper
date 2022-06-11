@@ -141,8 +141,9 @@ def handle_fields(html: str, category: str) -> bool:
 
         print_details(title, image, link, product_key, rating, price)
 
-        send_product_data(tokens['access_token'], title, '',
+        res = send_product_data(tokens['access_token'], title, '',
                           image, link, product_key, rating, price, category)
+        print(res, "\n")
 
         return True
     except:

@@ -1,4 +1,5 @@
 import os
+import random
 from urllib import parse
 import requests
 
@@ -27,7 +28,7 @@ def urlize_string(str: str) -> str:
     return parse.quote(str)
 
 
-def file_to_array(filepath: str) -> [str]:
+def file_to_array(filepath: str):
     res = []
     file_set = set()
     with open(filepath, 'r') as f:
@@ -46,20 +47,20 @@ def file_to_array(filepath: str) -> [str]:
 
 def send_product_data(access_token, title, description, imageUrl, link, product_key, rating, price, category):
     try:
-        response = requests.post('https://giftxtradeapi.com/products', headers={
-            "Contetn-Type": "application/json",
+        response = requests.post('http://localhost:8080/products', headers={
+            "Content-Type": "application/json",
             "Authorization": "Bearer " + access_token
-        }, data={
+        }, json={
             "title": title,
             "description": description,
             "productKey": product_key,
             "imageUrl": imageUrl,
             "rating": float(rating),
             "price": float(price),
-            "currency": "USD",
             "category": category,
-            "website": link
+            "originalUrl": link,
+            "totalReviews": int(random.randint(10, 10000))
         })
         return response
-    except Error:
-        print("Couldn't POST product to server")
+    except BaseException as e:
+        print("Couldn't POST product to server", e)
