@@ -111,6 +111,7 @@ def handle_fields(html: str, category: str) -> bool:
 
         link = ''
         product_key = ''
+        total_reviews = ''
         for a in html.find_all('a'):
             a_link = a.get('href')
             if '%2Fdp%2F' in a_link:
@@ -120,6 +121,9 @@ def handle_fields(html: str, category: str) -> bool:
             elif '/dp/' in a_link:
                 link = a_link
                 product_key = link.split('/dp/')[1].split('/')[0]
+                break
+            elif '#customerReviews' in a_link:
+                total_reviews = a.find('span').text
                 break
 
         ratings_raw = html.find('i').text
@@ -139,10 +143,10 @@ def handle_fields(html: str, category: str) -> bool:
             brand = brand_name_elem.find('span').text
             title = brand + ' ' + title
 
-        print_details(title, image, link, product_key, rating, price)
+        print_details(title, image, link, product_key, total_reviews,rating, price)
 
         res = send_product_data(tokens['access_token'], title, '',
-                          image, link, product_key, rating, price, category)
+                          image, link, product_key, total_reviews, rating, price, category)
         print(res, "\n")
 
         return True
@@ -150,11 +154,12 @@ def handle_fields(html: str, category: str) -> bool:
         return False
 
 
-def print_details(title, image, link, product_key, rating, price):
+def print_details(title, image, link, product_key, total_reviews, rating, price):
     print("Title: " + title)
     print("Image: " + image)
     print("Product Key: " + product_key)
     print("Link: " + link)
+    print("Total reviews: " + total_reviews)
     print("Rating: " + rating)
     print("Price: $" + price)
     print()

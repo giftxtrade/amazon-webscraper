@@ -45,7 +45,7 @@ def file_to_array(filepath: str):
     return res
 
 
-def send_product_data(access_token, title, description, imageUrl, link, product_key, rating, price, category):
+def send_product_data(access_token, title, description, imageUrl, link, product_key, total_reviews, rating, price, category):
     try:
         response = requests.post('http://localhost:8080/products', headers={
             "Content-Type": "application/json",
@@ -55,11 +55,11 @@ def send_product_data(access_token, title, description, imageUrl, link, product_
             "description": description,
             "productKey": product_key,
             "imageUrl": imageUrl,
+            "totalReviews": int(total_reviews),
             "rating": float(rating),
-            "price": float(price),
+            "price": price,
             "category": category,
             "originalUrl": link,
-            "totalReviews": int(random.randint(10, 10000))
         })
         return response
     except BaseException as e:
