@@ -17,7 +17,8 @@ operating_systems = [
 user_agent_rotator = UserAgent(
     software_names=software_names, operating_systems=operating_systems, limit=100)
 
-headers['User-Agent'] = user_agent_rotator.get_random_user_agent()
+
+locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 
 PAGE_DEPTH = 2
@@ -85,8 +86,6 @@ def search_request(url: str, category: str):
         print('bot was identified :(')
         return -1, -1
 
-    print(page.text)
-
     success = 0
     count = 0
 
@@ -117,20 +116,18 @@ def handle_fields(html: str, category: str) -> bool:
 
         link = ''
         product_key = ''
-        total_reviews = ''
+        total_reviews = 0
         for a in html.find_all('a'):
             a_link = a.get('href')
             if '%2Fdp%2F' in a_link:
                 link = a_link
                 product_key = link.split('%2Fdp%2F')[1].split('%2F')[0]
-                break
             elif '/dp/' in a_link:
                 link = a_link
                 product_key = link.split('/dp/')[1].split('/')[0]
-                break
-            elif '#customerReviews' in a_link:
-                total_reviews = a.find('span').text
-                break
+            
+            if '#customerReviews' in a_link:
+                total_reviews = locale.atoi(a.find('span').text)
 
         ratings_raw = html.find('i').text
         rating = ratings_raw.split(' ')[0]
@@ -165,7 +162,7 @@ def print_details(title, image, link, product_key, total_reviews, rating, price)
     print("Image: " + image)
     print("Product Key: " + product_key)
     print("Link: " + link)
-    print("Total reviews: " + total_reviews)
+    print("Total reviews: " + str(total_reviews))
     print("Rating: " + rating)
     print("Price: $" + price)
     print()
