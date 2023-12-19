@@ -1,3 +1,4 @@
+import locale
 import os
 import json
 import requests
@@ -17,6 +18,10 @@ operating_systems = [
 user_agent_rotator = UserAgent(
     software_names=software_names, operating_systems=operating_systems, limit=100)
 
+headers['Accept'] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"
+headers['Accept-Encoding'] = 'gzip, deflate, br'
+headers['Cookie'] = 'session-id=138-6039432-2778668; session-id-time=2082787201l; i18n-prefs=USD; csm-hit=tb:s-8WA567V0RYP3HZ0WKC9K|1702961621677&t:1702961623277&adb:adblk_no; ubid-main=131-5507218-3142957; session-token=v3EmbwXd6LYH/rgfctopbElCfMOLXelKBluastm10kZVEzoDYV9Kq41Jbm/DXhQNh0PZDCYhxIJoFrj5tHVeLmlUh1yXb8zo5T6elOLeXyRHKItv1BQ+5qoS1s7exjDpWcGVo6zZAGeHMqfGQxeuNdjipxrloT7HvQWhSRF9lHdbMQT2it2RxnACPpxlCto7eiuHQ09T7YCG/X1UuWzcbHpce90hCTXCtsNPL2TeEet1Y3XcTq9Dh8P7oOaZQCthuMYOHvdfuXR8zocEHlTdTvyvXh0uKpXVyCLHUax2jDIJjcGez1gbCDegKQmeAHdMyxNSfwDCRnFyaEYeJySNZ18DeJcLX+B2'
+headers['User-Agent'] = "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0"
 
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
@@ -55,7 +60,7 @@ def crawl():
                 time.sleep(rl_sleep)  # Sleep for 1 min
 
                 # Generate new random user agent
-                headers['User-Agent'] = user_agent_rotator.get_random_user_agent()
+                headers['User-Agent'] = "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0"
                 print('New user agent: ')
                 print(headers['User-Agent'])
 
