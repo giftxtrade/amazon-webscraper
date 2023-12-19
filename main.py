@@ -58,8 +58,8 @@ def crawl():
                 print('New user agent: ')
                 print(headers['User-Agent'])
 
-            product_count += success_pc
-            total_product_count += total_pc
+            product_count += success_pc if success_pc >= 0 else 0
+            total_product_count += total_pc if total_pc >= 0 else 0
             page_count += 1
         print()
 
@@ -77,9 +77,15 @@ def search_request(url: str, category: str):
         page = requests.get(url, headers=headers, allow_redirects=True)
     except:
         print("Could not send a request to the URL")
-        return 0, 0
+        return -1, -1
     parsedPage = BeautifulSoup(page.text, 'html.parser')
     items = parsedPage.find_all(class_='s-result-item')
+
+    if len(items) == 0 and ('Sorry!' in parsedPage.find('title').text):
+        print('bot was identified :(')
+        return -1, -1
+
+    print(page.text)
 
     success = 0
     count = 0
